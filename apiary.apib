@@ -1,0 +1,107 @@
+FORMAT: 1A
+HOST: http://backlogger.us-west-2.elasticbeanstalk.com/
+
+# Backlogger
+
+Backlogger is a small web application used to track ideas for enhancements or improvement to the site.
+The user can add new ideas to the backlog list.  There is no edit or reporting capability.
+
+
+## Backlog Collection [/backlogs]
+
+### List All Backlogs [GET]
+
+This call provides a list of all of the backlogs in the backlog.db (Mongo-neDB) collection.
+
+The _ID is the unique identifier for each backlog.
+
++ Response 200 (application/json)
+
+        [
+          {
+            "person": "Kunal Shaw",
+            "functionalarea": "Internal Review",
+            "idea": "Federal mandate date could be a date in the past.",
+            "insertdate": "03/12/2017",
+            "_id": "ETgPzgB5PXV4z9FE"
+          },
+          {
+            "person": "Kunal Shaw",
+            "functionalarea": "Internal Review",
+            "idea": "Login page\nChange Rukes",
+            "insertdate": "04/12/2017",
+            "_id": "EZjqWSJKC3dRqTRy"
+          },
+          {
+            "person": "Hajnalka Mayer",
+            "functionalarea": "Work Flow",
+            "idea": "Add Routine Requests that can be directed to other than BIC if they are not projects (work orders - requests which can be completed within two business days or less).",
+            "insertdate": "04/15/2017",
+            "_id": "F1ryQie47X5Pk1Fu"
+          }
+        ]
+
+### List Single Backlog [POST]
+
+This call provides a list of a single backlog identified by it's (_id) value.
+
++ Response 200 (application/json)
+
+        {
+            "person": "Kunal Shaw",
+            "functionalarea": "Internal Review",
+            "idea": "Federal mandate date could be a date in the past.",
+            "insertdate": "03/12/2017",
+            "_id": "ETgPzgB5PXV4z9FE"
+          }
+
+
+### Modify single backlog [PATCH]
+
+This call will modify an existing backlog identified by it's (_id) value.
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
+
+### Delete single Backlog [DELETE]
+
+This call will delete an existing backlog identified by it's (_id) value
+
++ Response 200 (application/json)

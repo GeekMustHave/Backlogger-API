@@ -6,14 +6,25 @@ HOST: http://backlogger.us-west-2.elasticbeanstalk.com/
 Backlogger is a small web application used to track ideas for enhancements or improvement to the site.
 The user can add new ideas to the backlog list.  There is no edit or reporting capability.
 
+All of the responses in this API will be delivered from a **Mongo-Like** database (neDB).
 
-## Backlog Collection [/backlogs]
 
-### List All Backlogs [GET]
+## Backlogs Collection [/backlogs]
 
-This call provides a list of all of the backlogs in the backlog.db (Mongo-neDB) collection.
+All of the responses in this collection will come from the **(backlog.db)** collection.
+
+None of the requests in this collection require a paramter.
+
+All of the requests in this collection refer to all of the backlogs in the database.
+
+
+
+### Get All Backlogs [GET]
+
+This call provides a list of *ALL* of the backlogs.  They are returned in ascensing (insertdate) order.
 
 The _ID is the unique identifier for each backlog.
+
 
 + Response 200 (application/json)
 
@@ -41,7 +52,16 @@ The _ID is the unique identifier for each backlog.
           }
         ]
 
-### List Single Backlog [POST]
+
+## Backlog Collection [/backlog]
+
+All of the responses in this collection will come from the **(backlog.db)** collection.
+
+All of the requests in this collection refer to a **Single** backlog in the database.
+
+All of the requests in this collection will require a **_id** parameter to specifiy which backlog is to be acted upon.
+
+### Get Backlog [GET]
 
 This call provides a list of a single backlog identified by it's (_id) value.
 
@@ -56,7 +76,7 @@ This call provides a list of a single backlog identified by it's (_id) value.
           }
 
 
-### Modify single backlog [PATCH]
+### Modify Backlog [PATCH]
 
 This call will modify an existing backlog identified by it's (_id) value.
 
@@ -76,31 +96,15 @@ This call will modify an existing backlog identified by it's (_id) value.
 
     + Headers
 
-            Location: /questions/2
+            Location: /backlog/error
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "errorMessage": "Your _id does **not** exist"
             }
 
-### Delete single Backlog [DELETE]
+### Delete Backlog [DELETE]
 
 This call will delete an existing backlog identified by it's (_id) value
 
